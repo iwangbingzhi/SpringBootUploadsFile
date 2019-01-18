@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <script th:src="@{/js/jquery-3.2.1.js}">
+
+    </script>
+    <script type="application/javascript">
+        function checkNullAndSize() {
+            if (document.getElementById("file1").value == null
+            || document.getElementById("file1").value == ""){
+                alert("上传文件不能为空！！");
+                return false;
+            }
+
+            var filep = document.getElementById("file1").files;
+            var fileSize = 0;
+            if (filep.length!=0){
+                fileSize = filep[0].size;
+            if (fileSize>2048576) {
+                alert("上传文件不能大于2M");
+                return false;
+                }
+            }
+        }
+
+    </script>
+    <meta charset="UTF-8">
+    <title>springboot之文件上传</title>
+</head>
+<hr>
+<h2>单个文件上传</h2>
+<div>
+    <form method="post" name="form1" enctype="multipart/form-data" onsubmit=" return checkNullAndSize()" action="/uploads/upload1">
+        <p>
+            文件：<input type="file" id="file1" name="file"/>
+            <input type="submit" value="上传"/>
+        </p>
+    </form>
+</div>
+<p id="content"></p>
+</hr>
+<h2>批量文件上传</h2>
+<div>
+    <form method="post" enctype="multipart/form-data" action="/uploads/upload2">
+        <p>
+        文件1：<input name="file" type="file"/>
+        </p>
+        <p>
+        文件2：<input name="file" type="file"/>
+        </p>
+        <p>
+            <input type="submit" value="上传"/>
+        </p>
+    </form>
+</div>
+
+</hr>
+
+<h2>Base64文件上传</h2>
+<div>
+    <form method="post" action="/uploads/upload3">
+        <p>
+            Base64编码：<textarea name="base64" rows="10" cols="80"></textarea>
+            <input type="submit" value="上传"/>
+        </p>
+    </form>
+</div>
+</body>
+</html>
